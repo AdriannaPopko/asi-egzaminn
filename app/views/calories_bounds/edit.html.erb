@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Set your calories goal</h1>
+</div>
+<%= form_for [current_user, @calories_bound], url: user_calories_bound_path(current_user, @calories_bound), html: { class: "form-horizontal calories-bound" } do |f| %>
+  <% if @calories_bound.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@calories_bound.errors.count, "error") %> prohibited this calories goal from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @calories_bound.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :upper_bound, class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.number_field :upper_bound, class: 'form-control' %>
+    </div>
+    <div class="col-lg-10 col-lg-offset-2">
+      <%= f.error_span(:upper_bound) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit "Update your goal", class: 'btn btn-primary' %>
+      <%= link_to "Back", diaries_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>
